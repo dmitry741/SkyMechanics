@@ -21,7 +21,7 @@ namespace SkyMechanics
         #region memebers
 
         Bitmap _bitmap = null;
-        Timer _timer = null;
+        readonly Timer _timer = new Timer { Enabled = false };
 
         #endregion
 
@@ -43,7 +43,13 @@ namespace SkyMechanics
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO:    
+            _bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            _timer.Tick += TimerTick;
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            Render();
         }
 
         #endregion
@@ -51,6 +57,11 @@ namespace SkyMechanics
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Render();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
