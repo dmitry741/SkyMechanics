@@ -22,10 +22,31 @@ namespace SkyMechanics
 
         Bitmap _bitmap = null;
         readonly Timer _timer = new Timer { Enabled = false };
+        SkyBodyManager _skyBodies = new SkyBodyManager();
 
         #endregion
 
         #region private
+
+        void CreateSolarSystem()
+        {
+            // TODO:
+        }
+
+        void RenderSkyBodies(Graphics g, SkyBodyManager skyBodies)
+        {
+            // TODO:
+        }
+
+        void RenderTrace(Graphics g, SkyBody skyBody)
+        {
+            // TODO:
+        }
+
+        void RenderSkyBody(Graphics g, SkyBody skyBody)
+        {
+
+        }
 
         void Render()
         {
@@ -49,6 +70,8 @@ namespace SkyMechanics
 
         private void TimerTick(object sender, EventArgs e)
         {
+            _skyBodies.Next();
+
             Render();
         }
 

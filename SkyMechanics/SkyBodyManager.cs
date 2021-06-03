@@ -14,7 +14,7 @@ namespace SkyMechanics
 
         #region === private methods ===
 
-        void Process(SkyBody sb1, SkyBody sb2)
+        void Process(SkyBodyBase sb1, SkyBodyBase sb2)
         {
             Vector2 v = sb1.Position - sb2.Position;
             float r2 = v.LengthSquared();
