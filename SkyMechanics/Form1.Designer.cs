@@ -52,6 +52,7 @@
             this.btnNext.TabIndex = 1;
             this.btnNext.Text = "Шаг++";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnStart
             // 
@@ -61,6 +62,7 @@
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Старт";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnStop
             // 
@@ -70,6 +72,7 @@
             this.btnStop.TabIndex = 3;
             this.btnStop.Text = "Стоп";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnExit
             // 

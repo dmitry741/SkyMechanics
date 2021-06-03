@@ -22,7 +22,7 @@ namespace SkyMechanics
 
         Bitmap _bitmap = null;
         readonly Timer _timer = new Timer { Enabled = false };
-        SkyBodyManager _skyBodies = new SkyBodyManager();
+        readonly SkyBodyManager _skyBodies = new SkyBodyManager();
 
         #endregion
 
@@ -71,7 +71,6 @@ namespace SkyMechanics
         private void TimerTick(object sender, EventArgs e)
         {
             _skyBodies.Next();
-
             Render();
         }
 
@@ -85,6 +84,29 @@ namespace SkyMechanics
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            _skyBodies.Next();
+            Render();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {            
+            if (!_timer.Enabled)
+            {
+                _timer.Interval = 50;
+                _timer.Start();
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            if (_timer.Enabled)
+            {
+                _timer.Stop();
+            }
         }
     }
 }
