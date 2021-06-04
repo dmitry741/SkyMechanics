@@ -30,7 +30,31 @@ namespace SkyMechanics
 
         void CreateSolarSystem()
         {
-            // TODO:
+            SkyBody skyBody;
+
+            // звезда, центр планетарной системы
+            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 21, 8000, Color.Yellow);
+            _skyBodies.Add(skyBody);
+
+            // планета 1
+            skyBody = new SkyBody(new Vector2(270, 0), new Vector2(0, -2.2f), 9, 40, Color.Wheat);
+            _skyBodies.Add(skyBody);
+
+            // спутник планеты 1
+            skyBody = new SkyBody(new Vector2(295, 0), new Vector2(0, -3.05f), 5, 8, Color.LightGray);
+            _skyBodies.Add(skyBody);
+
+            // планета 2
+            skyBody = new SkyBody(new Vector2(-360, 0), new Vector2(0, 1.7f), 13, 80, Color.Orange);
+            _skyBodies.Add(skyBody);
+
+            // спутник планеты 2
+            skyBody = new SkyBody(new Vector2(-390, 0), new Vector2(0, 2.76f), 7, 8, Color.Tomato);
+            _skyBodies.Add(skyBody);
+
+            // астериод
+            skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.DodgerBlue);
+            _skyBodies.Add(skyBody);
         }
 
         void RenderSkyBodies(Graphics g, SkyBodyManager skyBodies)
