@@ -23,6 +23,7 @@ namespace SkyMechanics
         Bitmap _bitmap = null;
         readonly Timer _timer = new Timer { Enabled = false };
         readonly SkyBodyManager _skyBodies = new SkyBodyManager();
+        RectangleF _boundRect = RectangleF.Empty;
 
         #endregion
 
@@ -59,7 +60,10 @@ namespace SkyMechanics
 
         void RenderSkyBodies(Graphics g, SkyBodyManager skyBodies)
         {
-            // TODO:
+            foreach(SkyBody skyBody in skyBodies)
+            {
+                RenderSkyBody(g, skyBody);
+            }
         }
 
         void RenderTrace(Graphics g, SkyBody skyBody)
@@ -69,7 +73,9 @@ namespace SkyMechanics
 
         void RenderSkyBody(Graphics g, SkyBody skyBody)
         {
-            // TODO:
+            Brush brush = new SolidBrush(skyBody.SBColor);
+            RectangleF rf = new RectangleF(skyBody.Position.X - skyBody.R, skyBody.Position.Y - skyBody.R, skyBody.R * 2, skyBody.R * 2);
+            g.FillEllipse(brush, rf);
         }
 
         void RenderBackSpace(Graphics g)
@@ -87,7 +93,7 @@ namespace SkyMechanics
             Graphics g = Graphics.FromImage(_bitmap);
             RenderBackSpace(g);
 
-            // TODO:
+            RenderSkyBodies(g, _skyBodies);
 
 
             pictureBox1.Image = _bitmap;
@@ -95,7 +101,19 @@ namespace SkyMechanics
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            CreateSolarSystem();
+            _boundRect = _skyBodies.BoundRect;
+
+            /*const float scaleFactor = 1.1f;
+            float shiftX = _boundRect.Width * (scaleFactor - 1) / 2;
+            float shiftY = _boundRect.Height * (scaleFactor - 1) / 2;
+
+            _boundRect.Width *= scaleFactor;
+            _boundRect.Height *= scaleFactor;
+            _boundRect.X -= shiftX;
+            _boundRect.Y -= shiftY;*/
+
+            _bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);            
             _timer.Tick += TimerTick;
         }
 

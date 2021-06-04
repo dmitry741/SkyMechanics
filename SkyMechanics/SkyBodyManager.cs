@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Drawing;
 
 namespace SkyMechanics
 {
@@ -49,6 +50,19 @@ namespace SkyMechanics
                 Vector2 lastPosition = new Vector2(sb.Position.X, sb.Position.Y);
                 sb.PushToTrace(lastPosition);
                 sb.Move();
+            }
+        }
+
+        public RectangleF BoundRect
+        {
+            get
+            {
+                float minX = _items.Min(sb => sb.Position.X);
+                float maxX = _items.Max(sb => sb.Position.X);
+                float minY = _items.Min(sb => sb.Position.Y);
+                float maxY = _items.Max(sb => sb.Position.Y);
+
+                return new RectangleF(minX, minY, maxX - minX + 1, maxY - minY + 1);
             }
         }
 
