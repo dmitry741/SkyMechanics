@@ -45,7 +45,14 @@ namespace SkyMechanics
 
         void RenderSkyBody(Graphics g, SkyBody skyBody)
         {
+            // TODO:
+        }
 
+        void RenderBackSpace(Graphics g)
+        {
+            Bitmap backspace = Properties.Resources.back_space;
+            RectangleF rf = new RectangleF(0, 0, pictureBox1.Width, pictureBox1.Height);
+            g.DrawImage(backspace, rf);
         }
 
         void Render()
@@ -54,7 +61,7 @@ namespace SkyMechanics
                 return;
 
             Graphics g = Graphics.FromImage(_bitmap);
-            g.Clear(Color.Black);
+            RenderBackSpace(g);
 
             // TODO:
 
