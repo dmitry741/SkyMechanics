@@ -13,7 +13,6 @@ namespace SkyMechanics
         #region === members ===
 
         Color _color;
-        readonly Queue<Vector2> _queue = new Queue<Vector2>();
 
         #endregion
 
@@ -27,7 +26,5 @@ namespace SkyMechanics
         }
 
         public Color SBColor => _color;
-
-        public IEnumerable<Vector2> Trace => _queue.ToList();
     }
 }

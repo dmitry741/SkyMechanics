@@ -35,7 +35,7 @@ namespace SkyMechanics
             SkyBody skyBody;
 
             // звезда, центр планетарной системы
-            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 21, 3000, Color.Yellow);
+            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 23, 3000, Color.Yellow);
             _skyBodies.Add(skyBody);
 
             // планета 1
@@ -47,7 +47,7 @@ namespace SkyMechanics
             _skyBodies.Add(skyBody);
 
             // планета 2
-            skyBody = new SkyBody(new Vector2(-360, 0), new Vector2(0, 1.7f), 13, 80, Color.Orange);
+            skyBody = new SkyBody(new Vector2(-360, 0), new Vector2(0, 1.7f), 12, 80, Color.Orange);
             _skyBodies.Add(skyBody);
 
             // спутник планеты 2
@@ -59,7 +59,7 @@ namespace SkyMechanics
             _skyBodies.Add(skyBody);
 
             // астериод
-            skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.White);
+            skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.YellowGreen);
             _skyBodies.Add(skyBody);
         }
 
