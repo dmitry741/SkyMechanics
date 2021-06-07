@@ -17,13 +17,13 @@ namespace SkyMechanics
 
         void Process(SkyBodyBase sb1, SkyBodyBase sb2)
         {
-            Vector2 v = sb1.Position - sb2.Position;
+            Vector2 v = sb2.Position - sb1.Position;
             float r2 = v.LengthSquared();
             float a1 = G * sb2.Weight / r2;
             float a2 = G * sb1.Weight / r2;
             Vector2 vn = Vector2.Normalize(v);
-            Vector2 da1 = vn * a1;
-            Vector2 da2 = vn * (-a2);
+            Vector2 da1 = a1 * vn;
+            Vector2 da2 = -a2 * vn;
 
             sb1.Acceleration += da1;
             sb2.Acceleration += da2;
@@ -47,8 +47,6 @@ namespace SkyMechanics
 
             foreach(SkyBody sb in _items)
             {
-                Vector2 lastPosition = new Vector2(sb.Position.X, sb.Position.Y);
-                sb.PushToTrace(lastPosition);
                 sb.Move();
             }
         }
@@ -57,12 +55,8 @@ namespace SkyMechanics
         {
             get
             {
-                float minX = _items.Min(sb => sb.Position.X);
-                float maxX = _items.Max(sb => sb.Position.X);
-                float minY = _items.Min(sb => sb.Position.Y);
-                float maxY = _items.Max(sb => sb.Position.Y);
-
-                return new RectangleF(minX, minY, maxX - minX + 1, maxY - minY + 1);
+                float size = _items.Max(s => Math.Max(Math.Abs(s.Position.X), Math.Abs(s.Position.Y)));
+                return new RectangleF(-size, -size, 2 * size, 2 * size);
             }
         }
 

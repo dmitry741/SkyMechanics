@@ -23,7 +23,8 @@ namespace SkyMechanics
         Bitmap _bitmap = null;
         readonly Timer _timer = new Timer { Enabled = false };
         readonly SkyBodyManager _skyBodies = new SkyBodyManager();
-        RectangleF _boundRect = RectangleF.Empty;
+        RectangleF _winBoundRect = RectangleF.Empty;
+        RectangleF _realBoundRect = RectangleF.Empty;
 
         #endregion
 
@@ -34,7 +35,7 @@ namespace SkyMechanics
             SkyBody skyBody;
 
             // звезда, центр планетарной системы
-            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 21, 8000, Color.Yellow);
+            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 21, 3000, Color.Yellow);
             _skyBodies.Add(skyBody);
 
             // планета 1
@@ -42,7 +43,7 @@ namespace SkyMechanics
             _skyBodies.Add(skyBody);
 
             // спутник планеты 1
-            skyBody = new SkyBody(new Vector2(295, 0), new Vector2(0, -3.05f), 5, 8, Color.LightGray);
+            skyBody = new SkyBody(new Vector2(295, 0), new Vector2(0, -3.05f), 4, 8, Color.LightGray);
             _skyBodies.Add(skyBody);
 
             // планета 2
@@ -50,11 +51,15 @@ namespace SkyMechanics
             _skyBodies.Add(skyBody);
 
             // спутник планеты 2
-            skyBody = new SkyBody(new Vector2(-390, 0), new Vector2(0, 2.76f), 7, 8, Color.Tomato);
+            skyBody = new SkyBody(new Vector2(-390, 0), new Vector2(0, 2.76f), 6, 8, Color.Tomato);
+            _skyBodies.Add(skyBody);
+
+            // планета 3
+            skyBody = new SkyBody(new Vector2(0, 310), new Vector2(2.1f, 0), 8, 10, Color.Red);
             _skyBodies.Add(skyBody);
 
             // астериод
-            skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.DodgerBlue);
+            skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.White);
             _skyBodies.Add(skyBody);
         }
 
@@ -66,15 +71,11 @@ namespace SkyMechanics
             }
         }
 
-        void RenderTrace(Graphics g, SkyBody skyBody)
-        {
-            // TODO:
-        }
-
         void RenderSkyBody(Graphics g, SkyBody skyBody)
         {
             Brush brush = new SolidBrush(skyBody.SBColor);
-            RectangleF rf = new RectangleF(skyBody.Position.X - skyBody.R, skyBody.Position.Y - skyBody.R, skyBody.R * 2, skyBody.R * 2);
+            PointF point = ConvertToWin(skyBody.Position.X, skyBody.Position.Y, _winBoundRect, _realBoundRect);
+            RectangleF rf = new RectangleF(point.X - skyBody.R, point.Y - skyBody.R, skyBody.R * 2, skyBody.R * 2);
             g.FillEllipse(brush, rf);
         }
 
@@ -95,23 +96,57 @@ namespace SkyMechanics
 
             RenderSkyBodies(g, _skyBodies);
 
+            //g.DrawRectangle(Pens.White, _winBoundRect.X, _winBoundRect.Y, _winBoundRect.Width, _winBoundRect.Height);
+
 
             pictureBox1.Image = _bitmap;
         }
 
+        PointF ConvertToWin(float X, float Y, RectangleF winBoundRect, RectangleF realBoundRect)
+        {
+            float Xwin = winBoundRect.Width / realBoundRect.Width * (X - realBoundRect.X) + winBoundRect.X;
+            float Ywin = winBoundRect.Bottom - winBoundRect.Height / realBoundRect.Height * (realBoundRect.Bottom - Y);
+            return new PointF(Xwin, Ywin);
+        }
+
+        RectangleF WinBoundRect
+        {
+            get
+            {
+                RectangleF rpb = new RectangleF(0, 0, pictureBox1.Width, pictureBox1.Height);
+                rpb.Inflate(-8, -8);
+
+                RectangleF realBoundRect = _skyBodies.BoundRect;
+                float scaleFactor = rpb.Width / realBoundRect.Width;
+                RectangleF resultRect = RectangleF.Empty;
+
+                if (realBoundRect.Height * scaleFactor < rpb.Height)
+                {
+                    resultRect.X = rpb.X;
+                    resultRect.Y = rpb.Y + rpb.Height / 2 - realBoundRect.Height * scaleFactor / 2;
+                    resultRect.Width = rpb.Width;
+                    resultRect.Height = realBoundRect.Height * scaleFactor;
+                }
+                else
+                {
+                    scaleFactor = rpb.Height / realBoundRect.Height;
+                    resultRect.X = rpb.X + rpb.Width / 2 - realBoundRect.Width * scaleFactor / 2;
+                    resultRect.Y = rpb.Y;
+                    resultRect.Width = realBoundRect.Width * scaleFactor;
+                    resultRect.Height = rpb.Height;
+                }
+
+                return resultRect;
+            }
+        }
+
+        #endregion
+
         private void Form1_Load(object sender, EventArgs e)
         {
             CreateSolarSystem();
-            _boundRect = _skyBodies.BoundRect;
-
-            /*const float scaleFactor = 1.1f;
-            float shiftX = _boundRect.Width * (scaleFactor - 1) / 2;
-            float shiftY = _boundRect.Height * (scaleFactor - 1) / 2;
-
-            _boundRect.Width *= scaleFactor;
-            _boundRect.Height *= scaleFactor;
-            _boundRect.X -= shiftX;
-            _boundRect.Y -= shiftY;*/
+            _winBoundRect = WinBoundRect;
+            _realBoundRect = _skyBodies.BoundRect;
 
             _bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);            
             _timer.Tick += TimerTick;
@@ -121,9 +156,7 @@ namespace SkyMechanics
         {
             _skyBodies.Next();
             Render();
-        }
-
-        #endregion
+        }       
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {

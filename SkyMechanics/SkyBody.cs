@@ -14,7 +14,6 @@ namespace SkyMechanics
 
         Color _color;
         readonly Queue<Vector2> _queue = new Queue<Vector2>();
-        readonly int _trace = 3;
 
         #endregion
 
@@ -28,16 +27,6 @@ namespace SkyMechanics
         }
 
         public Color SBColor => _color;
-
-        public void PushToTrace(Vector2 vector)
-        {
-            _queue.Enqueue(vector);
-
-            if (_queue.Count() == _trace + 1)
-            {
-                _queue.Dequeue();
-            }
-        }
 
         public IEnumerable<Vector2> Trace => _queue.ToList();
     }
