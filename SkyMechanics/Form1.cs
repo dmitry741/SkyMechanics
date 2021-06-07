@@ -82,8 +82,7 @@ namespace SkyMechanics
         void RenderBackSpace(Graphics g)
         {
             Bitmap backspace = Properties.Resources.back_space;
-            RectangleF rf = new RectangleF(0, 0, pictureBox1.Width, pictureBox1.Height);
-            g.DrawImage(backspace, rf);
+            g.DrawImage(backspace, 0, 0);
         }
 
         void Render()
@@ -92,12 +91,9 @@ namespace SkyMechanics
                 return;
 
             Graphics g = Graphics.FromImage(_bitmap);
+
             RenderBackSpace(g);
-
             RenderSkyBodies(g, _skyBodies);
-
-            //g.DrawRectangle(Pens.White, _winBoundRect.X, _winBoundRect.Y, _winBoundRect.Width, _winBoundRect.Height);
-
 
             pictureBox1.Image = _bitmap;
         }
@@ -188,6 +184,17 @@ namespace SkyMechanics
             if (_timer.Enabled)
             {
                 _timer.Stop();
+            }
+        }
+
+        private void btnZoomToFit_Click(object sender, EventArgs e)
+        {
+            _winBoundRect = WinBoundRect;
+            _realBoundRect = _skyBodies.BoundRect;
+
+            if (!_timer.Enabled)
+            {
+                Render();
             }
         }
     }

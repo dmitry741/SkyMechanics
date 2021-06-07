@@ -33,6 +33,7 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnZoomToFit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,11 +85,22 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // btnZoomToFit
+            // 
+            this.btnZoomToFit.Location = new System.Drawing.Point(1021, 183);
+            this.btnZoomToFit.Name = "btnZoomToFit";
+            this.btnZoomToFit.Size = new System.Drawing.Size(91, 57);
+            this.btnZoomToFit.TabIndex = 5;
+            this.btnZoomToFit.Text = "Подогнать размер";
+            this.btnZoomToFit.UseVisualStyleBackColor = true;
+            this.btnZoomToFit.Click += new System.EventHandler(this.btnZoomToFit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1124, 729);
+            this.Controls.Add(this.btnZoomToFit);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnZoomToFit;
     }
 }
 
