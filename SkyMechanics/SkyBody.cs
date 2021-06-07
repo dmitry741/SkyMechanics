@@ -12,7 +12,7 @@ namespace SkyMechanics
     {
         #region === members ===
 
-        Color _color;
+        readonly Color _color;
 
         #endregion
 

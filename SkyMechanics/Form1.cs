@@ -58,7 +58,7 @@ namespace SkyMechanics
             skyBody = new SkyBody(new Vector2(0, 310), new Vector2(2.1f, 0), 8, 10, Color.Red);
             _skyBodies.Add(skyBody);
 
-            // астериод
+            // астероид
             skyBody = new SkyBody(new Vector2(29, -150), new Vector2(-2, 0), 5, 2, Color.YellowGreen);
             _skyBodies.Add(skyBody);
         }
