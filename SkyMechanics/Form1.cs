@@ -35,7 +35,7 @@ namespace SkyMechanics
             SkyBody skyBody;
 
             // звезда, центр планетарной системы
-            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 23, 3000, Color.Yellow);
+            skyBody = new SkyBody(Vector2.Zero, Vector2.Zero, 23, 3000, Properties.Resources.sun);
             _skyBodies.Add(skyBody);
 
             // планета 1
@@ -73,9 +73,19 @@ namespace SkyMechanics
 
         void RenderSkyBody(Graphics g, SkyBody skyBody)
         {
-            Brush brush = new SolidBrush(skyBody.SBColor);
             PointF point = ConvertToWin(skyBody.Position.X, skyBody.Position.Y, _winBoundRect, _realBoundRect);
             RectangleF rf = new RectangleF(point.X - skyBody.R, point.Y - skyBody.R, skyBody.R * 2, skyBody.R * 2);
+            Brush brush;
+
+            if (skyBody.Texture == null)
+            {
+                brush = new SolidBrush(skyBody.SBColor);
+            }
+            else
+            {
+                brush = new TextureBrush(skyBody.Texture);
+            }
+
             g.FillEllipse(brush, rf);
         }
 
