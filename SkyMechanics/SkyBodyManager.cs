@@ -15,6 +15,11 @@ namespace SkyMechanics
 
         #region === private methods ===
 
+        /// <summary>
+        /// Метод определяет ускорения, которые получают небесные тела в результате гравитационного взаимодействия.
+        /// </summary>
+        /// <param name="sb1">Небесное тело 1.</param>
+        /// <param name="sb2">Небесное тело 2.</param>
         void Process(SkyBodyBase sb1, SkyBodyBase sb2)
         {
             Vector2 v = sb2.Position - sb1.Position;
@@ -33,8 +38,14 @@ namespace SkyMechanics
 
         #region === public ===
 
+        /// <summary>
+        /// Гравитационная постоянная
+        /// </summary>
         public float G { get; set; } = 0.4f;
 
+        /// <summary>
+        /// Вычисление новых позиций небесных тел.
+        /// </summary>
         public void Next()
         {
             for (int i = 0; i < _items.Count; i++)
@@ -51,6 +62,9 @@ namespace SkyMechanics
             }
         }
 
+        /// <summary>
+        /// Квадрат содержащий все небесные тела.
+        /// </summary>
         public RectangleF BoundRect
         {
             get

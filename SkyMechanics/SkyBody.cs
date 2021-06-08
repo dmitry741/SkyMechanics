@@ -8,6 +8,9 @@ using System.Drawing;
 
 namespace SkyMechanics
 {
+    /// <summary>
+    /// Класс небесного тела с параметрами отображения.
+    /// </summary>
     class SkyBody : SkyBodyBase
     {
         #region === members ===
@@ -17,6 +20,14 @@ namespace SkyMechanics
 
         #endregion
 
+        /// <summary>
+        /// Конструктор объекта SkyBody.
+        /// </summary>
+        /// <param name="position">Позиция.</param>
+        /// <param name="velocity">Скорость.</param>
+        /// <param name="r">Радиус.</param>
+        /// <param name="weight">Масса.</param>
+        /// <param name="color">Цвет.</param>
         public SkyBody(Vector2 position, Vector2 velocity, float r, float weight, Color color)
         {
             Position = position;
@@ -26,6 +37,14 @@ namespace SkyMechanics
             _color = color;
         }
 
+        /// <summary>
+        /// Конструктор объекта SkyBody.
+        /// </summary>
+        /// <param name="position">Позиция.</param>
+        /// <param name="velocity">Скорость.</param>
+        /// <param name="r">Радиус.</param>
+        /// <param name="weight">Масса.</param>
+        /// <param name="color">Текстура.</param>
         public SkyBody(Vector2 position, Vector2 velocity, float r, float weight, Bitmap texture)
         {
             Position = position;
@@ -35,7 +54,14 @@ namespace SkyMechanics
             _texture = texture;
         }
 
+        /// <summary>
+        /// Цвет.
+        /// </summary>
         public Color SBColor => _color;
+
+        /// <summary>
+        /// Текстура.
+        /// </summary>
         public Bitmap Texture => _texture;
     }
 }

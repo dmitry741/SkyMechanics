@@ -30,6 +30,9 @@ namespace SkyMechanics
 
         #region private
 
+        /// <summary>
+        /// Создание планетарной системы.
+        /// </summary>
         void CreateSolarSystem()
         {
             SkyBody skyBody;
