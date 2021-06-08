@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
 using System.Drawing;
+using System.Linq;
+using System.Numerics;
 
 namespace SkyMechanics
 {
@@ -39,7 +37,7 @@ namespace SkyMechanics
         #region === public ===
 
         /// <summary>
-        /// Гравитационная постоянная
+        /// Гравитационная постоянная.
         /// </summary>
         public float G { get; set; } = 0.4f;
 
