@@ -44,7 +44,7 @@ namespace SkyMechanics
         /// <summary>
         /// Гравитационная постоянная.
         /// </summary>
-        public float G { get; set; } = 0.4f;
+        public float G => 0.4f;
 
         /// <summary>
         /// Вычисление новых позиций небесных тел.
@@ -59,10 +59,7 @@ namespace SkyMechanics
                 }
             }
 
-            foreach(SkyBody sb in _items)
-            {
-                sb.Move();
-            }
+            _items.ForEach(s => s.Move());
         }
 
         /// <summary>
