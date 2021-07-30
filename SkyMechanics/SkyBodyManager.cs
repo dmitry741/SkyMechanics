@@ -5,6 +5,11 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 
+/* Урок "Моделирование движения небесных тел."
+ * Все уроки на http://digitalmodels.ru
+ * 
+ */
+
 namespace SkyMechanics
 {
     class SkyBodyManager : IList<SkyBody>
